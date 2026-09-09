@@ -143,6 +143,8 @@ create policy contacts_delete_own on contacts for delete
 
 This is enforced **independently of the application code** — `lib/server/contacts.repository.ts` doesn't filter by `user_id` anywhere, because it doesn't need to: the database itself won't return or accept rows that don't belong to the caller, even if a future code change forgets an ownership check.
 
+Verified directly against the live deployment: two separate accounts were created on the production URL, and an account with no contacts of its own could not see a contact created by the other account.
+
 ## Testing
 
 ```bash
@@ -162,10 +164,14 @@ No database connection or live Neon project is needed to run this — it's a pur
 **Test output:**
 
 ```
-TODO — paste the real `npm test` output here, e.g.:
+> networking-tracker@0.1.0 test
+> jest
 
 Test Suites: 1 passed, 1 total
 Tests:       6 passed, 6 total
+Snapshots:   0 total
+Time:        4.899 s
+Ran all test suites.
 ```
 
 ## Deployment
@@ -179,7 +185,6 @@ Tests:       6 passed, 6 total
 
 ## Known limitations and what's next
 
-- The exact Better Auth server method used to mint the Data API's bearer JWT (`auth.token()` in `lib/server/data-client.ts`) was chosen from `@neondatabase/neon-js`'s type definitions and the fact that it's the SDK's JWT-plugin endpoint (the shape the PostgREST Data API expects) — `@neondatabase/neon-js` is a beta package, so this is the one integration point worth re-checking against the quickstart snippet Neon's own dashboard generates once Managed Better Auth + the Data API are enabled on your project, and adjusting if the dashboard suggests a different method name.
 - No pagination — the contact list loads everything for the signed-in user in one request. Fine at personal scale, would need pagination for very large lists.
 - No CSV import/export or reminder emails for upcoming follow-ups yet.
 - No password reset flow.

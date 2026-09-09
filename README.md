@@ -7,6 +7,12 @@ A private, per-user tracker for the people you're networking with — who you me
 **Live URL:** [https://networking-tracker-two-henna.vercel.app](https://networking-tracker-two-henna.vercel.app)
 
 ## Screenshots / walkthrough
+<img width="290" height="240" alt="image" src="https://github.com/user-attachments/assets/39af4794-b167-458e-9085-ca0b190560f6" />
+
+<img width="290" height="299" alt="image" src="https://github.com/user-attachments/assets/e77dc12a-fedc-46e0-b3ac-69047f41c372" />
+
+<img width="290" height="240" alt="image" src="https://github.com/user-attachments/assets/3a0e1cbd-7591-4189-89d1-74b330cc27ad" />
+
 
 > `TODO — replace with real screenshots or a short screen recording taken against the live app, covering:`
 > - `Sign-up and sign-in`

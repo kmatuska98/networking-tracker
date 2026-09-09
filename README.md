@@ -4,7 +4,7 @@ A private, per-user tracker for the people you're networking with — who you me
 
 ## Live app
 
-**Live URL:** `TODO — add after deploying to Vercel` (e.g. `https://networking-tracker.vercel.app`)
+**Live URL:** [https://networking-tracker-two-henna.vercel.app](https://networking-tracker-two-henna.vercel.app)
 
 ## Screenshots / walkthrough
 

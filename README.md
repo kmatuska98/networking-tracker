@@ -187,6 +187,7 @@ Ran all test suites.
 
 - No pagination — the contact list loads everything for the signed-in user in one request. Fine at personal scale, would need pagination for very large lists.
 - No CSV import/export or reminder emails for upcoming follow-ups yet.
+- No calendar integration for upcoming events yet.
 - No password reset flow.
 - No optimistic UI updates — every action re-fetches the list after it completes.
 

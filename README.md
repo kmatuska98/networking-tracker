@@ -13,14 +13,18 @@ A private, per-user tracker for the people you're networking with — who you me
 
 <img width="290" height="240" alt="image" src="https://github.com/user-attachments/assets/3a0e1cbd-7591-4189-89d1-74b330cc27ad" />
 
+<img width="846" height="464" alt="image" src="https://github.com/user-attachments/assets/5b4151c6-99f0-4901-a58a-76952722bedc" />
 
-> `TODO — replace with real screenshots or a short screen recording taken against the live app, covering:`
-> - `Sign-up and sign-in`
-> - `Sign-out`
-> - `Adding a contact, editing it, deleting it, and refreshing the page to show it persisted`
-> - `Sorting and filtering the contact list`
-> - `An invalid submission (empty name / bad priority) failing with a clear inline error`
-> - `Two separate accounts, showing Account A cannot see Account B's contacts`
+<img width="622" height="509" alt="image" src="https://github.com/user-attachments/assets/ad5288c3-486d-4d7a-813c-d6e0a4c83e9b" />
+
+<img width="733" height="64" alt="image" src="https://github.com/user-attachments/assets/a89bc651-c868-4dc0-b03a-c0ab6cc9c3a2" />
+
+<img width="848" height="609" alt="image" src="https://github.com/user-attachments/assets/605566a8-4061-4551-9784-8f6bce61ed12" />
+
+<img width="576" height="546" alt="image" src="https://github.com/user-attachments/assets/215f3193-c51f-4775-ac7d-6ab454aaadef" />
+
+<img width="846" height="371" alt="image" src="https://github.com/user-attachments/assets/09cf386e-f4ad-4054-a44e-c8d7e28a0608" />
+
 
 ## Features
 

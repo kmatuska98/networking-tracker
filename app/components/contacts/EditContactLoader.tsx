@@ -84,6 +84,9 @@ export function EditContactLoader({ contactId }: { contactId: string }) {
         notes: contact.notes ?? "",
         priority: contact.priority,
         next_follow_up_date: contact.next_follow_up_date ?? "",
+        last_contacted_date: contact.last_contacted_date ?? "",
+        contact_method: contact.contact_method ?? "",
+        relationship_stage: contact.relationship_stage,
       }}
     />
   );

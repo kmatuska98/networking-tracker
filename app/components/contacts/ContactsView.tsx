@@ -22,6 +22,7 @@ export function ContactsView() {
   const sort = (searchParams.get("sort") as SortField) || "created_at";
   const direction = (searchParams.get("dir") as SortDirection) || "desc";
   const priority = searchParams.get("priority") || "all";
+  const stage = searchParams.get("stage") || "all";
   const search = searchParams.get("q") || "";
 
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -50,6 +51,7 @@ export function ContactsView() {
     try {
       const params = new URLSearchParams({ sort, dir: direction });
       if (priority !== "all") params.set("priority", priority);
+      if (stage !== "all") params.set("stage", stage);
       if (search) params.set("q", search);
 
       const response = await fetch(`/api/contacts?${params.toString()}`, {
@@ -67,7 +69,7 @@ export function ContactsView() {
       setErrorMessage(error instanceof Error ? error.message : "Could not load contacts.");
       setStatus("error");
     }
-  }, [sort, direction, priority, search]);
+  }, [sort, direction, priority, stage, search]);
 
   useEffect(() => {
     // Intentional: refetch from the API whenever sort/filter URL params change.
@@ -97,7 +99,7 @@ export function ContactsView() {
     }
   }
 
-  const hasActiveFilters = priority !== "all" || search.length > 0;
+  const hasActiveFilters = priority !== "all" || stage !== "all" || search.length > 0;
 
   return (
     <div className="space-y-6">
@@ -110,8 +112,10 @@ export function ContactsView() {
 
       <ContactFilterBar
         priority={priority}
+        stage={stage}
         search={search}
         onPriorityChange={(value) => updateParams({ priority: value })}
+        onStageChange={(value) => updateParams({ stage: value })}
         onSearchChange={(value) => updateParams({ q: value })}
       />
 
@@ -126,7 +130,7 @@ export function ContactsView() {
       ) : contacts.length === 0 ? (
         <EmptyState
           hasActiveFilters={hasActiveFilters}
-          onClearFilters={() => updateParams({ priority: "all", q: "" })}
+          onClearFilters={() => updateParams({ priority: "all", stage: "all", q: "" })}
         />
       ) : (
         <ContactTable

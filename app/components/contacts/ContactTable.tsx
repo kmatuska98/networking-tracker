@@ -10,7 +10,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import type { Contact, SortDirection, SortField } from "@/lib/types/contact";
+import { CONTACT_METHOD_LABELS, type Contact, type SortDirection, type SortField } from "@/lib/types/contact";
 
 const PRIORITY_VARIANT: Record<Contact["priority"], "default" | "secondary" | "outline"> = {
   high: "default",
@@ -28,11 +28,18 @@ interface ContactTableProps {
 
 function formatDate(value: string | null) {
   if (!value) return "—";
-  return new Date(value).toLocaleDateString(undefined, {
+  // Parse "YYYY-MM-DD" as a local calendar date, not UTC midnight — otherwise
+  // toLocaleDateString() can shift it back a day in timezones behind UTC.
+  const [year, month, day] = value.split("-").map(Number);
+  return new Date(year, month - 1, day).toLocaleDateString(undefined, {
     year: "numeric",
     month: "short",
     day: "numeric",
   });
+}
+
+function formatContactMethod(value: Contact["contact_method"]) {
+  return value ? CONTACT_METHOD_LABELS[value] : "—";
 }
 
 function SortButton({
@@ -82,6 +89,16 @@ export function ContactTable({
               <TableHead>Company</TableHead>
               <TableHead>Role</TableHead>
               <TableHead>Met at</TableHead>
+              <TableHead>Contact method</TableHead>
+              <TableHead>
+                <SortButton
+                  field="last_contacted_date"
+                  label="Last contacted"
+                  sort={sort}
+                  direction={direction}
+                  onSortChange={onSortChange}
+                />
+              </TableHead>
               <TableHead>
                 <SortButton field="priority" label="Priority" sort={sort} direction={direction} onSortChange={onSortChange} />
               </TableHead>
@@ -104,6 +121,8 @@ export function ContactTable({
                 <TableCell>{contact.company || "—"}</TableCell>
                 <TableCell>{contact.role || "—"}</TableCell>
                 <TableCell>{contact.met_at || "—"}</TableCell>
+                <TableCell>{formatContactMethod(contact.contact_method)}</TableCell>
+                <TableCell>{formatDate(contact.last_contacted_date)}</TableCell>
                 <TableCell>
                   <Badge variant={PRIORITY_VARIANT[contact.priority]} className="capitalize">
                     {contact.priority}
@@ -138,6 +157,14 @@ export function ContactTable({
               <div>
                 <dt className="text-muted-foreground">Met at</dt>
                 <dd>{contact.met_at || "—"}</dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Contact method</dt>
+                <dd>{formatContactMethod(contact.contact_method)}</dd>
+              </div>
+              <div>
+                <dt className="text-muted-foreground">Last contacted</dt>
+                <dd>{formatDate(contact.last_contacted_date)}</dd>
               </div>
               <div>
                 <dt className="text-muted-foreground">Next follow-up</dt>

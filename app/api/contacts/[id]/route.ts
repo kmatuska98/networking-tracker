@@ -6,6 +6,7 @@ import {
   RepositoryError,
   updateContact,
 } from "@/lib/server/contacts.repository";
+import { deleteCalendarEventForContact, syncCalendarForContact } from "@/lib/server/google-calendar";
 import { validateContactInput } from "@/lib/validation/contact.validation";
 import type { ContactInput } from "@/lib/types/contact";
 
@@ -45,7 +46,8 @@ export async function PATCH(request: NextRequest, { params }: Params) {
     if (!contact) {
       return NextResponse.json({ errors: { form: "Contact not found." } }, { status: 404 });
     }
-    return NextResponse.json({ contact });
+    const calendarWarning = await syncCalendarForContact(contact);
+    return NextResponse.json({ contact, calendarWarning });
   } catch (error) {
     return handleError(error);
   }
@@ -60,6 +62,7 @@ export async function DELETE(_request: NextRequest, { params }: Params) {
     if (!contact) {
       return NextResponse.json({ errors: { form: "Contact not found." } }, { status: 404 });
     }
+    await deleteCalendarEventForContact(contact);
     return NextResponse.json({ contact });
   } catch (error) {
     return handleError(error);

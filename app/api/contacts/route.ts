@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requireUser, UnauthorizedError } from "@/lib/server/require-user";
 import { createContact, listContacts, RepositoryError } from "@/lib/server/contacts.repository";
+import { syncCalendarForContact } from "@/lib/server/google-calendar";
 import { validateContactInput } from "@/lib/validation/contact.validation";
 import type { ContactInput } from "@/lib/types/contact";
 
@@ -13,6 +14,7 @@ export async function GET(request: NextRequest) {
       sort: searchParams.get("sort"),
       direction: searchParams.get("dir"),
       priority: searchParams.get("priority"),
+      stage: searchParams.get("stage"),
       search: searchParams.get("q"),
     });
 
@@ -37,7 +39,8 @@ export async function POST(request: NextRequest) {
     }
 
     const contact = await createContact(body);
-    return NextResponse.json({ contact }, { status: 201 });
+    const calendarWarning = await syncCalendarForContact(contact);
+    return NextResponse.json({ contact, calendarWarning }, { status: 201 });
   } catch (error) {
     return handleError(error);
   }
